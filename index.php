@@ -6,10 +6,10 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <div class="">
 
-        </div>
         <div id="buble">
+            <h2> BURBUJA </h2>
+            <p class='desordenado'>Longitud/contenido aleatorio en elrango(1,10)</p>
 
             <?php
 
@@ -22,13 +22,13 @@
                 for ($a=0; $a < count($array); $a++) {
                     $array[$a] = rand(1,50);
                 }
+
                 return $array;
             }
+
             $randomArray = randomArray();
 
             //Print the array content
-            echo "<h2> BURBUJA </h2>";
-            echo "<p class='desordenado'>Longitud/contenido aleatorio en el rango(1,10)</p>" ;
             print_r($randomArray);
             echo "<br>";
 
@@ -44,40 +44,55 @@
                 }
             }
 
-            //Print the content
+            //Print the content organized
             echo "<p class='ordenado'>Contenido ordenado</p>";
             print_r($randomArray);
 
-            echo "<hr><h2> Seleccion directa</h2>
-                <p class='desordenado'>Longitud/contenido aleatorio en el rango(1,10)</p>";
+             ?>
 
-            //re-do the random array and print it
-            $randomArray = randomArray();
-            print_r($randomArray);
+             <hr>
+        </div>
+        
+        <div id="selecDirecta">
+            <h2> Seleccion directa</h2>
+            <p class='desordenado'>Longitud/contenido aleatorio en elrango(1,10)</p>
 
-            //Organize the content with the ordered content method
-            for ($i=0; $i < count($randomArray); $i++){
-                for ($j= $i+1; $j < count($randomArray); $j++){
-                    if ($randomArray[$i] > $randomArray[$j]) {
+                <?php
 
-                        $flag = $randomArray[$i];
-                        $randomArray[$i] = $randomArray[$j];
-                        $randomArray[$j] = $flag;
+                //create a new random array and print it
+                $randomArray = randomArray();
+                print_r($randomArray);
+
+                //Organize the content with the ordered content method
+                for ($i=0; $i < count($randomArray); $i++){
+                    for ($j= $i+1; $j < count($randomArray); $j++){
+                        if ($randomArray[$i] > $randomArray[$j]) {
+
+                            $flag = $randomArray[$i];
+                            $randomArray[$i] = $randomArray[$j];
+                            $randomArray[$j] = $flag;
+                        }
                     }
                 }
-            }
 
-            //Print the content
-            echo "<p class='ordenado'> Contenido ordenado </p>";
-            print_r($randomArray);
+                //Print the content
+                echo "<p class='ordenado'> Contenido ordenado </p>";
+                print_r($randomArray);
 
-            //QuickShort
-            echo "<hr><h2> Quick Short</h2>
-            <p class='desordenado'>Array desordenada</p>";
+                 ?>
+        </div>
+
+        <div id="quickShort">
+
+            <hr><h2> Quick Short</h2>
+            <p class='desordenado'>Array desordenada</p>
+
+            <?php
+
             $quickShortArray = randomArray();
             print_r($quickShortArray);
 
-            //Print the content
+            //Print the organized content
             echo "<p class='ordenado'>Contenido ordenado</p>";
             $newArray = quickShort($quickShortArray);
             print_r($newArray);
@@ -99,10 +114,12 @@
                     }
                 }
 
-                return array_merge(quickShort($menores), (array)$pivote, quickShort($mayores));
+                return array_merge(
+                    quickShort($menores),(array)$pivote,quickShort($mayores));
 
             }
              ?>
+
         </div>
     </body>
 </html>
