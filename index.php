@@ -7,9 +7,11 @@
     </head>
     <body>
         <div id="buble">
+            
             <?php
 
             function randomArray() {
+
                 //generate an array of random length
                 $array = range(0,rand(1,10));
 
@@ -69,7 +71,6 @@
             //QuickShort
             echo "<hr><h2> Quick Short</h2>
             <p class='desordenado'>Array desordenada</p>";
-            //$quickShortArray = array(49,24,36,80,31);
             $quickShortArray = randomArray();
             print_r($quickShortArray);
 
@@ -78,20 +79,20 @@
             $newArray = quickShort($quickShortArray);
             print_r($newArray);
 
-            function quickShort($inputArray){
+            function quickShort($array){
 
-                if (count($inputArray) <= 1) {
-                    return $inputArray;
+                if (count($array) < 2) {
+                    return $array;
                 }
-                $menores = array();
-                $mayores = array();
-                $pivote = $inputArray[0];
 
-                foreach ($inputArray as $value) {
-                    if ($pivote > $value) {
-                        array_push($menores, $value);
-                    } elseif ($pivote < $value) {
-                        array_push($mayores, $value);
+                $menores = $mayores = array();
+                $pivote = $array[0];
+
+                for ($i=1; $i < count($array); $i++) {
+                    if ($pivote >= $array[$i]) {
+                        array_push($menores, $array[$i]);
+                    } else {
+                        array_push($mayores, $array[$i]);
                     }
                 }
 
