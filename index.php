@@ -6,8 +6,11 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <div class="">
+
+        </div>
         <div id="buble">
-            
+
             <?php
 
             function randomArray() {
