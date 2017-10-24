@@ -7,119 +7,115 @@
     </head>
     <body>
 
-        <div id="buble">
-            <h2> BURBUJA </h2>
-            <p class='desordenado'>Longitud/contenido aleatorio en elrango(1,10)</p>
+        <?php
 
-            <?php
+        function generateRandomArray() {
 
-            function randomArray() {
+            //generate an array of random length
+            $array = range(0,rand(1,10));
 
-                //generate an array of random length
-                $array = range(0,rand(1,10));
+            //Put a random number for each position
+            for ($a=0; $a < count($array); $a++) {
+                $array[$a] = rand(1,50);
+            }
 
-                //Put a random number for each position
-                for ($a=0; $a < count($array); $a++) {
-                    $array[$a] = rand(1,50);
+            return $array;
+        }
+
+        function bubble($array) {
+
+            for ($j=0; $j < count($array); $j++){
+                for ($i=0; $i < count($array)-1; $i++) {
+                    if ($array[$i] > $array[$i+1]) {
+
+                        $flag = $array[$i];
+                        $array[$i] = $array[$i+1];
+                        $array[$i+1] = $flag;
+                    }
                 }
+            }
 
+            return $array;
+
+        }
+
+        function directSelection($array) {
+
+            for ($i=0; $i < count($array); $i++){
+                for ($j= $i+1; $j < count($array); $j++){
+                    if ($array[$i] > $array[$j]) {
+
+                        $flag = $array[$i];
+                        $array[$i] = $array[$j];
+                        $array[$j] = $flag;
+                    }
+                }
+            }
+
+            return $array;
+        }
+
+        function quickShort($array){
+
+            if (count($array) < 2) {
                 return $array;
             }
 
-            $randomArray = randomArray();
+            $menores = $mayores = array();
+            $pivote = $array[0];
 
-            //Print the array content
-            print_r($randomArray);
-            echo "<br>";
+            for ($i=1; $i < count($array); $i++) {
+                if ($pivote >= $array[$i]) {
 
-            //Organize the content
-            for ($j=1; $j < count($randomArray); $j++){
-                for ($i=0; $i < count($randomArray)-1; $i++) {
-                    if ($randomArray[$i] > $randomArray[$i+1]) {
+                    $menores[] = $array[$i];
 
-                        $flag = $randomArray[$i];
-                        $randomArray[$i] = $randomArray[$i+1];
-                        $randomArray[$i+1] = $flag;
-                    }
+                } else {
+
+                    $mayores[] = $array[$i];
                 }
             }
 
-            //Print the content organized
-            echo "<p class='ordenado'>Contenido ordenado</p>";
-            print_r($randomArray);
+            return array_merge(
+                quickShort($menores),(array)$pivote,quickShort($mayores));
+        }
 
-             ?>
+        // echo implode("----",bubble(generateRandomArray()));
+        // echo "<br>";
+        // echo implode("----",directSelection(generateRandomArray()));
+        // echo "<br>";
+        // echo implode("----",quickShort(generateRandomArray()));
 
-             <hr>
-        </div>
-        
-        <div id="selecDirecta">
-            <h2> Seleccion directa</h2>
-            <p class='desordenado'>Longitud/contenido aleatorio en elrango(1,10)</p>
+         ?>
 
-                <?php
+         <form class="" action="" method="post">
+             <div id="type">
+                 <b>Selecciona el tipo de ordenacion</b> <br>
+                 <input class="radio" type="radio" name="type" value="bubble"> Bubble </input>
+                 <input class="radio" type="radio" name="type" value="directSelection"> Direct selection </input>
+                 <input class="radio" type="radio" name="type" value="quickShort"> Quick short </input>
+                 <input class="radio" type="submit" name="" value="Submit">
+             </div>
+         </form>
 
-                //create a new random array and print it
-                $randomArray = randomArray();
-                print_r($randomArray);
-
-                //Organize the content with the ordered content method
-                for ($i=0; $i < count($randomArray); $i++){
-                    for ($j= $i+1; $j < count($randomArray); $j++){
-                        if ($randomArray[$i] > $randomArray[$j]) {
-
-                            $flag = $randomArray[$i];
-                            $randomArray[$i] = $randomArray[$j];
-                            $randomArray[$j] = $flag;
-                        }
-                    }
-                }
-
-                //Print the content
-                echo "<p class='ordenado'> Contenido ordenado </p>";
-                print_r($randomArray);
-
-                 ?>
-        </div>
-
-        <div id="quickShort">
-
-            <hr><h2> Quick Short</h2>
-            <p class='desordenado'>Array desordenada</p>
 
             <?php
 
-            $quickShortArray = randomArray();
-            print_r($quickShortArray);
+            $ordinationAlgorithm = $_POST["type"];
 
-            //Print the organized content
-            echo "<p class='ordenado'>Contenido ordenado</p>";
-            $newArray = quickShort($quickShortArray);
-            print_r($newArray);
-
-            function quickShort($array){
-
-                if (count($array) < 2) {
-                    return $array;
-                }
-
-                $menores = $mayores = array();
-                $pivote = $array[0];
-
-                for ($i=1; $i < count($array); $i++) {
-                    if ($pivote >= $array[$i]) {
-                        array_push($menores, $array[$i]);
-                    } else {
-                        array_push($mayores, $array[$i]);
-                    }
-                }
-
-                return array_merge(
-                    quickShort($menores),(array)$pivote,quickShort($mayores));
-
+            switch ($ordinationAlgorithm) {
+                case "bubble":
+                    echo "bubble selected";
+                    break;
+                case "directSelection":
+                    echo "directSelection selected";
+                    break;
+                case "quickShort":
+                    echo "quickShort selected";
+                    break;
+                default:
+                    echo "selecciona una opcion";
             }
-             ?>
-
-        </div>
+              ?>
+         </div>
     </body>
 </html>
