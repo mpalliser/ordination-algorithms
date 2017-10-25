@@ -1,7 +1,28 @@
-.ordenado {
-    color: green;
+body,html {
+    margin: 0px;
+    padding: 0px;
 }
+#form {
+    width: 50%;
+    border: solid 1px red;
 
-.desordenado {
-    color:red;
+}
+#ordinationType {
+    padding: 10px;
+    width: 47%;
+    display: inline;
+    float: left;
+    border: solid 1px red;
+
+}
+#arrayType {
+    padding: 10px;
+    width: 46%;
+    display: inline;
+    float: left;
+    border: solid 1px red;
+
+}
+#submit {
+    width: 100%;
 }
